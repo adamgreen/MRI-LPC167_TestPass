@@ -392,8 +392,15 @@ Continuing.
 Use GDB to select ```2) Set registers to known values and stop at hardcoded bkpt``` again and then just issue a ```continue``` to let the test program resume execution. MRI will first single step over the hardcoded breakpoint and then resume execution.
 ```
 Program received signal SIGTRAP, Trace/breakpoint trap.
+main () at src/main.cpp:36
+36	        __debugbreak();
+(gdb) set var g_selection =2
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
 testContextWithHardcodedBreakpoint () at src/tests.s:80
-80          bkpt    #0
+80	    bkpt    #0
 (gdb) c
 Continuing.
 ```
@@ -526,6 +533,20 @@ main () at src/main.cpp:38
 38              __debugbreak();
 (gdb) delete
 Delete all breakpoints? (y or n) y
+(gdb) c
+Continuing.
+
+1) Set registers to known values and crash.
+2) Set registers to known values and stop at hardcoded bkpt.
+3) Call breakOnMe() to increment g_global
+4) Run 2 threads at normal priority
+5) Run Semi-Hosting tests
+6) Trigger mbed hard fault handler
+Set selection in g_selection:
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+main () at src/main.cpp:36
+36	        __debugbreak();
 (gdb) break thread2Func
 Breakpoint 1 at 0x120: file src/main.cpp, line 112.
 (gdb) set var g_selection=4
@@ -535,7 +556,7 @@ Note: automatically using hardware breakpoints for read-only addresses.
 
 Set g_stop to true to end test...
 
-Breakpoint 1, thread2Func (pv=0x0 <osRegisterForOsEvents>) at src/main.cpp:112
+Breakpoint 5, thread2Func (pv=0x0 <osRegisterForOsEvents>) at src/main.cpp:112
 112     {
 (gdb) bt
 #0  thread2Func (pv=0x0 <osRegisterForOsEvents>) at src/main.cpp:112
