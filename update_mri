@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+GCC4MBED=$PWD/gcc4mbed/mri
+
+set -x
+
+pushd ../mri
+make clean arm
+
+cp lib/armv7-m/libmri_mbed1768.a $GCC4MBED/
+cp lib/armv7-m/libmri_bambino210.a $GCC4MBED/
+cp lib/armv7-m/libmri_stm32f429-disco.a $GCC4MBED/
+
+cp LICENSE $GCC4MBED
+cat core/mri.h core/version.h >$GCC4MBED/mri.h
+
+popd
