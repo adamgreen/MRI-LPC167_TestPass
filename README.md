@@ -183,7 +183,7 @@ main () at src/main.cpp:38
 
 
 ## Verify Correct XML for Registers & Memory
-KernelDebug should expose XML dictating the register and memory layout of the device on which it is running.
+MRI should expose XML dictating the register and memory layout of the device on which it is running.
 
 There should be the expected r0-r12, sp, lr, pc, xpsr, msp, psp, primask, faultfmask, and control registers as seen below:
 ```console
